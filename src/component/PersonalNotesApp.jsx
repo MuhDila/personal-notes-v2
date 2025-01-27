@@ -1,98 +1,67 @@
-import { useState, useEffect } from 'react';
-import { FiSmile, FiMoreHorizontal, FiX, FiAperture, FiMenu, FiSearch, FiSlash } from 'react-icons/fi';
+import React from "react";
+import LeftSideBar from "./LeftSideBar.jsx";
+import TopSideBar from "./TopSideBar.jsx";
 
-function PersonalNotesApp() {
-    const [sidebarExtend, setSidebarExtend] = useState(false);
-    const [sidebarMinimized, setSidebarMinimized] = useState(false);
-
-    const toggleSidebarExtend = () => {
-        setSidebarExtend(!sidebarExtend);
-        console.log('Sidebar extend toggled:', !sidebarExtend);
-    };
-
-    const toggleSidebarMinimized = () => {
-        setSidebarMinimized(!sidebarMinimized);
-        console.log('Sidebar minimized toggled:', !sidebarMinimized);
-    };
-
-    const resetSidebarState = () => {
-        setSidebarExtend(false);
-        setSidebarMinimized(false);
-        console.log('Screen resized: Sidebar states reset.');
-    };
-
-    useEffect(() => {
-        const handleResize = () => {
-            resetSidebarState();
+class PersonalNotesApp extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sidebarExtend: false,
+            sidebarMinimized: false,
         };
 
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+        this.handleSidebarExtendToggle = this.handleSidebarExtendToggle.bind(this);
+        this.handleSidebarMinimizedToggle = this.handleSidebarMinimizedToggle.bind(this);
+        this.resetSidebarState = this.resetSidebarState.bind(this);
+    }
 
-    return (
-        <div id="main-wrapper">
-            <aside className={`left-sidebar ${sidebarExtend ? 'extend' : ''} ${sidebarMinimized ? 'minimized' : ''}`}>
-                <div>
-                    <div className="brand-logo">
-                        <h1>Personal Notes</h1>
-                        <FiSmile className="brand-icon" />
-                        <a><FiX className="react-icon extend" onClick={toggleSidebarExtend} /></a>
-                        <a><FiX className="react-icon minimized" onClick={toggleSidebarMinimized} /></a>
-                    </div>
+    handleSidebarExtendToggle() {
+        this.setState((prevState) => ({
+            sidebarExtend: !prevState.sidebarExtend,
+        }));
+    }
 
-                    <nav className="sidebar-nav">
-                        <ul id="sidebarnav">
-                            <li className="nav-small-cap">
-                                <FiMoreHorizontal className="react-icon nav-home" />
-                                <span className="hide-menu">Home</span>
-                            </li>
-                            <li className="sidebar-item selected">
-                                <a className="sidebar-link active" href="#" aria-expanded="false">
-                                    <FiAperture className="react-icon" />
-                                    <span className="hide-menu">Modern</span>
-                                </a>
-                            </li>
+    handleSidebarMinimizedToggle() {
+        this.setState((prevState) => ({
+            sidebarMinimized: !prevState.sidebarMinimized,
+        }));
+    }
 
-                            <li className="sidebar-item">
-                                <a className="sidebar-link link-disabled" href="#" aria-expanded="false">
-                                    <FiSlash className="react-icon" />
-                                    <span className="hide-menu">Disabled</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </aside>
-            <div className={`page-wrapper ${sidebarMinimized ? 'page-wrapper-minimized' : ''} page-wrapper ${sidebarExtend ? 'page-wrapper-extend' : ''}`}>
-                <header className="topbar">
-                    <nav className="navbar">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <FiMenu className="react-icon extend" onClick={toggleSidebarExtend} />
-                                <FiMenu className="react-icon minimized" onClick={toggleSidebarMinimized} />
-                            </li>
-                            <li className="nav-item">
-                                <FiSearch className="react-icon" />
-                            </li>
-                        </ul>
-                    </nav>
-                </header>
-                <div className="body-wrapper">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquid animi aut autem cumque dicta
-                        eos fugiat illo iure, iusto magni minima molestias nihil officia pariatur quo repellendus rerum
-                        sequi sint ut. Ab accusantium alias aliquam assumenda culpa cupiditate dignissimos distinctio
-                        fugit magnam modi nemo, nesciunt obcaecati, officiis quis, quisquam rem tempore voluptas
-                        voluptates. Consequuntur cumque dolor dolore eos explicabo illum iste maiores possimus
-                        praesentium ullam. Accusamus beatae culpa dicta dolore eaque esse, eum labore neque nobis odit
-                        porro quaerat qui quia ratione reprehenderit repudiandae sequi sunt, suscipit tenetur vitae?
-                        Alias assumenda ex ipsa itaque omnis quaerat qui rem sapiente?</p>
-                </div>
+    resetSidebarState() {
+        this.setState({
+            sidebarExtend: false,
+            sidebarMinimized: false,
+        });
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.resetSidebarState);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.resetSidebarState);
+    }
+
+    render() {
+        const { sidebarExtend, sidebarMinimized } = this.state;
+
+        return (
+            <div id="main-wrapper">
+                <LeftSideBar
+                    sidebarExtend={sidebarExtend}
+                    sidebarMinimized={sidebarMinimized}
+                    onExtendToggle={this.handleSidebarExtendToggle}
+                    onMinimizedToggle={this.handleSidebarMinimizedToggle}
+                />
+                <TopSideBar
+                    sidebarExtend={sidebarExtend}
+                    sidebarMinimized={sidebarMinimized}
+                    onExtendToggle={this.handleSidebarExtendToggle}
+                    onMinimizedToggle={this.handleSidebarMinimizedToggle}
+                />
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default PersonalNotesApp;
