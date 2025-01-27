@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { FiSmile, FiMoreHorizontal, FiX, FiAperture, FiSlash } from "react-icons/fi";
 
-function LeftSideBar({ sidebarExtend, sidebarMinimized, onExtendToggle, onMinimizedToggle }) {
+function NotesSidebar({ sidebarExtend, sidebarMinimized, onExtendToggle, onMinimizedToggle }) {
     return (
-        <aside className={`left-sidebar ${sidebarExtend ? "extend" : ""} ${sidebarMinimized ? "minimized" : ""}`}>
+        <aside className={`notes-sidebar ${sidebarExtend ? "extend" : ""} ${sidebarMinimized ? "minimized" : ""}`}>
             <div>
                 <div className="brand-logo">
                     <h1>Personal Notes</h1>
@@ -36,11 +36,11 @@ function LeftSideBar({ sidebarExtend, sidebarMinimized, onExtendToggle, onMinimi
     );
 }
 
-LeftSideBar.propTypes = {
+NotesSidebar.propTypes = {
     sidebarExtend: PropTypes.bool.isRequired,
     sidebarMinimized: PropTypes.bool.isRequired,
     onExtendToggle: PropTypes.func.isRequired,
     onMinimizedToggle: PropTypes.func.isRequired,
 };
 
-export default LeftSideBar;
+export default NotesSidebar;

@@ -1,8 +1,8 @@
 import React from "react";
-import LeftSideBar from "./LeftSideBar.jsx";
-import TopSideBar from "./TopSideBar.jsx";
+import NotesSidebar from "./NotesSidebar.jsx";
+import NotesLayout from "./NotesLayout.jsx";
 
-class PersonalNotesApp extends React.Component {
+class NotesApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,13 +47,13 @@ class PersonalNotesApp extends React.Component {
 
         return (
             <div id="main-wrapper">
-                <LeftSideBar
+                <NotesSidebar
                     sidebarExtend={sidebarExtend}
                     sidebarMinimized={sidebarMinimized}
                     onExtendToggle={this.handleSidebarExtendToggle}
                     onMinimizedToggle={this.handleSidebarMinimizedToggle}
                 />
-                <TopSideBar
+                <NotesLayout
                     sidebarExtend={sidebarExtend}
                     sidebarMinimized={sidebarMinimized}
                     onExtendToggle={this.handleSidebarExtendToggle}
@@ -64,4 +64,4 @@ class PersonalNotesApp extends React.Component {
     }
 }
 
-export default PersonalNotesApp;
+export default NotesApp;
