@@ -1,37 +1,64 @@
-import {useState} from 'react';
-import {FiX, FiAperture, FiMenu, FiSearch, FiSlash} from 'react-icons/fi';
+import { useState, useEffect } from 'react';
+import { FiSmile, FiMoreHorizontal, FiX, FiAperture, FiMenu, FiSearch, FiSlash } from 'react-icons/fi';
 
 function PersonalNotesApp() {
-    const [sidebarVisible, setSidebarVisible] = useState(false);
+    const [sidebarExtend, setSidebarExtend] = useState(false);
+    const [sidebarMinimized, setSidebarMinimized] = useState(false);
 
-    const toggleSidebar = () => {
-        setSidebarVisible(!sidebarVisible);
+    const toggleSidebarExtend = () => {
+        setSidebarExtend(!sidebarExtend);
+        console.log('Sidebar extend toggled:', !sidebarExtend);
     };
+
+    const toggleSidebarMinimized = () => {
+        setSidebarMinimized(!sidebarMinimized);
+        console.log('Sidebar minimized toggled:', !sidebarMinimized);
+    };
+
+    const resetSidebarState = () => {
+        setSidebarExtend(false);
+        setSidebarMinimized(false);
+        console.log('Screen resized: Sidebar states reset.');
+    };
+
+    useEffect(() => {
+        const handleResize = () => {
+            resetSidebarState();
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <div id="main-wrapper">
-            <aside className={`left-sidebar ${sidebarVisible ? 'active' : ''}`}>
+            <aside className={`left-sidebar ${sidebarExtend ? 'extend' : ''} ${sidebarMinimized ? 'minimized' : ''}`}>
                 <div>
                     <div className="brand-logo">
                         <h1>Personal Notes</h1>
-                        <a><FiX className="react-icon" onClick={toggleSidebar}/></a>
+                        <FiSmile className="brand-icon" />
+                        <a><FiX className="react-icon extend" onClick={toggleSidebarExtend} /></a>
+                        <a><FiX className="react-icon minimized" onClick={toggleSidebarMinimized} /></a>
                     </div>
 
                     <nav className="sidebar-nav">
                         <ul id="sidebarnav">
                             <li className="nav-small-cap">
+                                <FiMoreHorizontal className="react-icon nav-home" />
                                 <span className="hide-menu">Home</span>
                             </li>
                             <li className="sidebar-item selected">
                                 <a className="sidebar-link active" href="#" aria-expanded="false">
-                                    <FiAperture className="react-icon"/>
+                                    <FiAperture className="react-icon" />
                                     <span className="hide-menu">Modern</span>
                                 </a>
                             </li>
 
                             <li className="sidebar-item">
                                 <a className="sidebar-link link-disabled" href="#" aria-expanded="false">
-                                    <FiSlash className="react-icon"/>
+                                    <FiSlash className="react-icon" />
                                     <span className="hide-menu">Disabled</span>
                                 </a>
                             </li>
@@ -39,15 +66,16 @@ function PersonalNotesApp() {
                     </nav>
                 </div>
             </aside>
-            <div className={`page-wrapper ${sidebarVisible ? 'blurred' : ''}`}>
+            <div className={`page-wrapper ${sidebarMinimized ? 'page-wrapper-minimized' : ''} page-wrapper ${sidebarExtend ? 'page-wrapper-extend' : ''}`}>
                 <header className="topbar">
                     <nav className="navbar">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <FiMenu className="react-icon" onClick={toggleSidebar}/>
+                                <FiMenu className="react-icon extend" onClick={toggleSidebarExtend} />
+                                <FiMenu className="react-icon minimized" onClick={toggleSidebarMinimized} />
                             </li>
                             <li className="nav-item">
-                                <FiSearch className="react-icon"/>
+                                <FiSearch className="react-icon" />
                             </li>
                         </ul>
                     </nav>

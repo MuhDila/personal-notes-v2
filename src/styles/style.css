@@ -172,7 +172,7 @@ a:visited, a:focus, a:active {
     color: var(--bs-white);
 }
 
-.left-sidebar {
+.left-sidebar, .left-sidebar.minimized {
     width: 270px;
     border-right: 1px solid var(--bs-border-color);
     flex-shrink: 0;
@@ -186,15 +186,6 @@ a:visited, a:focus, a:active {
     height: 100%;
 }
 
-.left-sidebar.active {
-    width: 100px;
-}
-
-.left-sidebar:hover {
-    width: 270px;
-    transition: 0.2s ease-in;
-}
-
 .brand-logo {
     display: flex;
     padding: 10px 24px;
@@ -202,7 +193,7 @@ a:visited, a:focus, a:active {
     justify-content: space-between;
 }
 
-.brand-logo .react-icon {
+.brand-logo .react-icon, .brand-icon {
     color: var(--bs-link-color);
     display: none;
 }
@@ -254,12 +245,16 @@ a:visited, a:focus, a:active {
     color: var(--bs-white);
 }
 
-.page-wrapper {
+.page-wrapper, .page-wrapper.minimized {
     margin-left: 270px;
 }
 
 .page-wrapper .react-icon {
     font-size: 20px;
+}
+
+.react-icon.minimized {
+    display: none;
 }
 
 header {
@@ -288,10 +283,67 @@ header {
     cursor: pointer;
 }
 
-
 .body-wrapper {
     margin: 0;
     padding: 0 24px;
+}
+
+/*TODO*/
+.react-icon.nav-home {
+    display: none;
+}
+
+.left-sidebar.extend h1 {
+    display: none;
+}
+
+.left-sidebar:hover h1 {
+    display: block;
+}
+
+.left-sidebar.extend .brand-icon {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+.left-sidebar:hover .brand-icon {
+    display: none;
+}
+
+.left-sidebar.extend {
+    width: 85px;
+}
+
+.left-sidebar.extend .hide-menu {
+    display: none;
+}
+
+.left-sidebar.extend .react-icon.nav-home, .left-sidebar.extend .nav-small-cap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left-sidebar.extend:hover {
+    width: 270px;
+}
+
+.left-sidebar:hover .hide-menu {
+    display: block;
+}
+
+.left-sidebar:hover .nav-small-cap {
+    display: block;
+}
+
+.left-sidebar:hover .react-icon.nav-home {
+    display: none;
+}
+
+.page-wrapper.page-wrapper-extend {
+    margin-left: 85px;
 }
 
 @media (max-width: 1300px) {
@@ -300,22 +352,30 @@ header {
         display: block;
     }
 
-    .left-sidebar {
+    .left-sidebar, .left-sidebar.extend {
         width: 270px;
         position: fixed;
         left: -270px;
         height: 100%;
     }
 
-    .left-sidebar.active {
+    .left-sidebar.minimized {
         left: 0;
     }
 
-    .page-wrapper {
+    .react-icon.extend {
+        display: none;
+    }
+
+    .react-icon.minimized {
+        display: block;
+    }
+
+    .page-wrapper, .page-wrapper.extend {
         margin-left: 0;
     }
 
-    .page-wrapper.blurred {
+    .page-wrapper.page-wrapper-minimized {
         filter: blur(5px);
         pointer-events: none;
     }
