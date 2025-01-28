@@ -43,10 +43,10 @@ class NotesApp extends React.Component {
     }
 
     render() {
-        const { sidebarExtend, sidebarMinimized } = this.state;
+        const {sidebarExtend, sidebarMinimized} = this.state;
 
         return (
-            <div id="main-wrapper">
+            <div id="notes-app">
                 <NotesSidebar
                     sidebarExtend={sidebarExtend}
                     sidebarMinimized={sidebarMinimized}

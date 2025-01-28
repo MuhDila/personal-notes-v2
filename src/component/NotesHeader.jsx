@@ -3,7 +3,7 @@ import { FiMenu, FiSearch } from "react-icons/fi";
 
 function NotesHeader({ onExtendToggle, onMinimizedToggle }) {
     return (
-        <header className="top-wrapper">
+        <header className="notes-header">
             <nav className="navbar">
                 <ul className="navbar-nav">
                     <li className="nav-item">

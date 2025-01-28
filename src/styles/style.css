@@ -148,7 +148,7 @@ h1 {
     line-height: 26px;
 }
 
-p {
+p, h2 {
     margin: 0;
 }
 
@@ -165,6 +165,10 @@ a {
 
 a:visited, a:focus, a:active {
     color: inherit;
+}
+
+span {
+    color: var(--bs-body-color);
 }
 
 .notes-sidebar .react-icon {
@@ -212,7 +216,7 @@ a:visited, a:focus, a:active {
     text-transform: uppercase;
 }
 
-.sidebar-item .sidebar-link {
+.sidebar-item .sidebar-link{
     display: flex;
     font-size: 14px;
     white-space: nowrap;
@@ -227,7 +231,7 @@ a:visited, a:focus, a:active {
     font-weight: 400;
 }
 
-.sidebar-item .sidebar-link:hover {
+.sidebar-item .sidebar-link:hover, .sidebar-link:hover .react-icon, .sidebar-link:hover span {
     background: var(--bs-primary-bg-subtle);
     color: var(--bs-primary);
 }
@@ -236,11 +240,11 @@ a:visited, a:focus, a:active {
     border-color: var(--bs-primary);
 }
 
-.sidebar-item .link-disabled {
-    opacity: 0.38;
+.sidebar-item .react-icon {
+    color: var(--bs-body-color);
 }
 
-.sidebar-item.selected > .sidebar-link.active {
+.sidebar-item.selected > .sidebar-link.active, .sidebar-item.selected .react-icon, .sidebar-item.selected span {
     background-color: var(--bs-primary);
     color: var(--bs-white);
 }
@@ -283,12 +287,11 @@ header {
     cursor: pointer;
 }
 
-.body-wrapper {
+.notes-list {
     margin: 0;
     padding: 0 24px;
 }
 
-/*TODO*/
 .react-icon.nav-home {
     display: none;
 }
@@ -348,6 +351,85 @@ header {
 
 .notes-layout.notes-layout-extend {
     margin-left: 85px;
+}
+
+/*Notes List*/
+.notes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 20px;
+    align-items: start;
+}
+
+/*Notes Item*/
+.notes-item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 8px;
+}
+
+.notes-item-body {
+    padding: 20px;
+}
+
+.notes-item h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--bs-white);
+}
+
+.notes-item span {
+    font-size: 12px;
+}
+
+.notes-item p {
+    margin-top: 16px;
+}
+
+.side-stick {
+    position: absolute;
+    width: 3px;
+    height: 35px;
+    margin: 22px 0;
+    background-color: var(--bs-primary);
+}
+
+/*Notes Button*/
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.notes-item-button {
+    padding: 0 20px 20px 20px;
+}
+
+.notes-item-button-delete {
+    color: var(--bs-warning);
+}
+
+.notes-item-button-delete:hover {
+    color: var(--bs-danger);
+}
+
+.notes-item-button-achieve {
+    color: var(--bs-body-color);
+}
+
+.notes-item-button-achieve:hover {
+    color: var(--bs-primary);
+}
+
+.notes-item-button-achieve.archived {
+    color: var(--bs-primary);
+}
+
+.notes-item-button-achieve.archived:hover {
+    color: var(--bs-body-color);
 }
 
 @media (max-width: 1300px) {

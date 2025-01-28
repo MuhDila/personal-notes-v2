@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
-import { FiSmile, FiMoreHorizontal, FiX, FiAperture, FiSlash } from "react-icons/fi";
+import { Link, useLocation } from "react-router-dom";
+import { FiSmile, FiMoreHorizontal, FiX, FiEdit, FiHome } from "react-icons/fi";
 
 function NotesSidebar({ sidebarExtend, sidebarMinimized, onExtendToggle, onMinimizedToggle }) {
+    const location = useLocation();
+
     return (
         <aside className={`notes-sidebar ${sidebarExtend ? "extend" : ""} ${sidebarMinimized ? "minimized" : ""}`}>
             <div>
@@ -15,19 +18,19 @@ function NotesSidebar({ sidebarExtend, sidebarMinimized, onExtendToggle, onMinim
                     <ul id="sidebarnav">
                         <li className="nav-small-cap">
                             <FiMoreHorizontal className="react-icon nav-home" />
-                            <span className="hide-menu">Home</span>
+                            <span className="hide-menu">My Notes</span>
                         </li>
-                        <li className="sidebar-item selected">
-                            <a className="sidebar-link active" href="#" aria-expanded="false">
-                                <FiAperture className="react-icon" />
-                                <span className="hide-menu">Modern</span>
-                            </a>
+                        <li className={`sidebar-item ${location.pathname === "/" ? "selected" : ""}`}>
+                            <Link to="/" className={`sidebar-link ${location.pathname === "/" ? "active" : ""}`}>
+                                <FiHome className="react-icon" />
+                                <span className="hide-menu">Home</span>
+                            </Link>
                         </li>
-                        <li className="sidebar-item">
-                            <a className="sidebar-link link-disabled" href="#" aria-expanded="false">
-                                <FiSlash className="react-icon" />
-                                <span className="hide-menu">Disabled</span>
-                            </a>
+                        <li className={`sidebar-item ${location.pathname === "/create" ? "selected" : ""}`}>
+                            <Link to="/create" className={`sidebar-link ${location.pathname === "/create" ? "active" : ""}`}>
+                                <FiEdit className="react-icon" />
+                                <span className="hide-menu">Create</span>
+                            </Link>
                         </li>
                     </ul>
                 </nav>
